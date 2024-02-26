@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  zookeeper1:
+    image: zookeeper:3.6
+    ports:
+      - "2181:2181"
+    env_file: ./.env/zookeeper1.env
+    restart: always
+    volumes:
+      - ./zookeeper/zookeeper1_data:/data
+      - ./zookeeper/zookeeper1_datalog:/datalog
+    healthcheck:
+      test: ["CMD", "nc", "-w", "2", "localhost", "2181"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      zookeeper-net:
+        ipv4_address: 172.20.0.2
+
+
+  zookeeper2:
+    image: zookeeper:3.6
+    ports:
+      - 2182:2181
+    env_file: ./.env/zookeeper2.env
+    restart: always
+    volumes:
+      - ./zookeeper/zookeeper2_data:/data
+      - ./zookeeper/zookeeper2_datalog:/datalog
+    healthcheck:
+      test: ["CMD", "nc", "-w", "2", "localhost", "2181"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      zookeeper-net:
+        ipv4_address: 172.20.0.3
+
+
+  zookeeper3:
+    image: zookeeper:3.6
+    ports:
+      - 2183:2181
+    env_file: ./.env/zookeeper3.env
+    restart: always
+    volumes:
+      - ./zookeeper/zookeeper3_data:/data
+      - ./zookeeper/zookeeper3_datalog:/datalog
+    healthcheck:
+      test: ["CMD", "nc", "-w", "2", "localhost", "2181"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      zookeeper-net:
+        ipv4_address: 172.20.0.4
+
+
+networks:
+  zookeeper-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
