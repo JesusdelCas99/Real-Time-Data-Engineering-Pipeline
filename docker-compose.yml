@@ -20,7 +20,6 @@ services:
       kafka-network:
         ipv4_address: 172.20.10.2
   
-  
 
   kafka:
     image: wurstmeister/kafka:latest
@@ -32,7 +31,6 @@ services:
     networks:
       kafka-network:
         ipv4_address: 172.20.10.3
-
 
 
 networks:
