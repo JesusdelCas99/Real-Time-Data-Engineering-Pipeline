@@ -3,6 +3,7 @@ version: '3'
 
 services:
   zookeeper:
+    container_name: zookeeper
     image: confluentinc/cp-zookeeper:latest
     ports:
       - "2181:2181"
@@ -16,13 +17,14 @@ services:
         ipv4_address: 172.20.10.2
     healthcheck:
       test: ["CMD", "nc", "-w", "2", "localhost", "2181"]
-      interval: 10s
+      interval: 15s
       timeout: 5s
       retries: 3
     
   
 
   kafka:
+    container_name: kafkaBroker1
     image: confluentinc/cp-kafka:latest
     ports:
       - "9092:9092"
@@ -34,7 +36,7 @@ services:
         ipv4_address: 172.20.10.3
     healthcheck:
       test: ["CMD", "nc", "-w", "2", "localhost", "9092"]
-      interval: 10s
+      interval: 15s
       timeout: 5s
       retries: 3
   
