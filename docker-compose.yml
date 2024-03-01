@@ -3,7 +3,7 @@ version: '3'
 
 services:
   zookeeper:
-    image: zookeeper:3.6
+    image: confluentinc/cp-zookeeper:latest
     ports:
       - "2181:2181"
     env_file: ./.env/zookeeper.env
@@ -11,18 +11,19 @@ services:
     volumes:
       - ./zdata:/data
       - ./zdatalog:/datalog
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.2
     healthcheck:
       test: ["CMD", "nc", "-w", "2", "localhost", "2181"]
       interval: 10s
       timeout: 5s
       retries: 3
-    networks:
-      kafka-network:
-        ipv4_address: 172.20.10.2
+    
   
 
   kafka:
-    image: wurstmeister/kafka:latest
+    image: confluentinc/cp-kafka:latest
     ports:
       - "9092:9092"
     env_file: ./.env/kafka.env
@@ -31,6 +32,12 @@ services:
     networks:
       kafka-network:
         ipv4_address: 172.20.10.3
+    healthcheck:
+      test: ["CMD", "nc", "-w", "2", "localhost", "9092"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  
 
 
 networks:
