@@ -1,14 +1,15 @@
 version: '3'
 
 services:  
+
   kafka:
-    container_name: kafkaBroker1
+    container_name: broker
     image: bitnami/kafka:latest
     ports:
       - "9092:9092"
     env_file: ./.env/kafka.env
     volumes:
-      - "./kafka:/bitnami"
+      - ./kafka:/bitnami
     networks:
       kafka-network:
         ipv4_address: 172.20.10.3
@@ -17,7 +18,36 @@ services:
       interval: 15s
       timeout: 5s
       retries: 3
- 
+  
+  
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    env_file: ./.env/postgres.env
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.4
+
+
+  airflow:
+    container_name: airflow
+    image: apache/airflow:2.2.0
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on: 
+      - postgres
+    env_file: ./.env/airflow.env
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.4
+    
+
 networks:
   kafka-network:
     driver: bridge
