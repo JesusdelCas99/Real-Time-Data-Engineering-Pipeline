@@ -2,14 +2,12 @@ version: '3'
 
 services:  
 
-  kafka:
+  broker:
     container_name: broker
-    image: bitnami/kafka:3.7.0
+    image: confluentinc/cp-server:7.4.0
     ports:
       - "9092:9092"
     env_file: ./.env/kafka.env
-    volumes:
-      - ./kafka:/bitnami
     networks:
       kafka-network:
         ipv4_address: 172.20.10.3
@@ -58,6 +56,20 @@ services:
         ipv4_address: 172.20.10.5
 
 
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.4.0
+    container_name: schema-registry
+    depends_on:
+      broker:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+    env_file: ./.env/schema-registry.env
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.6
+
+
   control-center:
     container_name: control-center
     image: 'confluentinc/cp-enterprise-control-center:5.3.6-3'
@@ -65,31 +77,13 @@ services:
     ports:
       - '9021:9021'
     depends_on:
-      - kafka
+      - broker
       - schema-registry
-    networks:
-      kafka-network:
-        ipv4_address: 172.20.10.6
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:9021/" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-    
-
-  schema-registry:
-    image: bitnami/schema-registry
-    container_name: schema-registry
-    depends_on:
-      - kafka
-    ports:
-      - "8083:8083"
-    env_file: ./.env/schema-registry.env
     networks:
       kafka-network:
         ipv4_address: 172.20.10.7
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8083/" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:9021/" ]
       interval: 30s
       timeout: 10s
       retries: 5
