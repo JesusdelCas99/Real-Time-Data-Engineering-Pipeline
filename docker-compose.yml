@@ -58,6 +58,43 @@ services:
         ipv4_address: 172.20.10.5
 
 
+  control-center:
+    container_name: control-center
+    image: 'confluentinc/cp-enterprise-control-center:5.3.6-3'
+    env_file: ./.env/control-center.env
+    ports:
+      - '9021:9021'
+    depends_on:
+      - kafka
+      - schema-registry
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.6
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9021/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    
+
+  schema-registry:
+    image: bitnami/schema-registry
+    container_name: schema-registry
+    depends_on:
+      - kafka
+    ports:
+      - "8083:8083"
+    env_file: ./.env/schema-registry.env
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.7
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8083/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+
 networks:
   kafka-network:
     driver: bridge
