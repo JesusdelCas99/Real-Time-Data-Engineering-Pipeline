@@ -22,35 +22,46 @@ services:
   
   postgres:
     container_name: postgres
-    image: postgres:latest
+    image: postgres:14
     env_file: ./.env/postgres.env
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./postgres/data:/var/lib/postgresql/data
     networks:
       kafka-network:
         ipv4_address: 172.20.10.4
-
-
+  
+    
   airflow:
     container_name: airflow
-    image: apache/airflow:2.2.0
-    restart: always
-    ports:
-      - "8080:8080"
+    image: apache/airflow:2.6.0-python3.9
     depends_on: 
       - postgres
-    env_file: ./.env/airflow.env
+    ports:
+      - "8081:8081"
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
+      - ./requirements.txt:/opt/airflow/requirements.txt
+    env_file: ./.env/airflow.env
+    command:
+      - bash
+      - -c
+      - |
+        pip install -r ./requirements.txt;
+        airflow db init;
+        airflow users create --username user --firstname user --lastname user --role Admin --email admin@example.com --password admin;
+        airflow db upgrade;
+        airflow webserver -p 8081 > /dev/null 2>&1 &
+        airflow scheduler 
     networks:
       kafka-network:
-        ipv4_address: 172.20.10.4
-    
+        ipv4_address: 172.20.10.5
+
 
 networks:
   kafka-network:
     driver: bridge
     ipam:
+      driver: default
       config:
         - subnet: 172.20.10.0/24
