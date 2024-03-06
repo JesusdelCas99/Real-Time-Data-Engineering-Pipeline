@@ -82,7 +82,39 @@ services:
     networks:
       kafka-network:
         ipv4_address: 172.20.10.7
-    
+  
+
+  spark-master:
+    image: bitnami/spark:3.5.1
+    command: bin/spark-class org.apache.spark.deploy.master.Master
+    ports:
+      - "9090:8080"
+      - "7077:7077"
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.8
+
+
+  spark-worker:
+    image: bitnami/spark:3.5.1
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    env_file: ./.env/spark-worker.env
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.9
+
+
+  cassandra:
+    image: cassandra:3.11.11
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    env_file: ./.env/cassandra.env
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.10
 
 
 networks:
