@@ -72,7 +72,7 @@ services:
 
   control-center:
     container_name: control-center
-    image: 'confluentinc/cp-enterprise-control-center:5.3.6-3'
+    image: 'confluentinc/cp-enterprise-control-center:7.4.0'
     env_file: ./.env/control-center.env
     ports:
       - '9021:9021'
@@ -82,11 +82,7 @@ services:
     networks:
       kafka-network:
         ipv4_address: 172.20.10.7
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:9021/" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+    
 
 
 networks:
