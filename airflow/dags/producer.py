@@ -6,10 +6,13 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 
 
+# Function to fetch user info from randomuser.me and send it to Kafka
 def getUserInfoAndSendToKafka():
+    # Fetch user info from randomuser.me API
     response = requests.get("https://randomuser.me/api/")
     data = response.json()
 
+    # Extract required user info from API response
     userInfo = {
         'username': data['results'][0]['login']['username'],
         'password': data['results'][0]['login']['password'],
@@ -22,33 +25,36 @@ def getUserInfoAndSendToKafka():
     }
 
     # Send userInfo to Kafka
-    producer = KafkaProducer(bootstrap_servers='172.20.10.3:9092')
-    producer.send('userInfoTopic', json.dumps(userInfo).encode('utf-8'))
-    producer.flush()
-    producer.close()
+    producer = KafkaProducer(bootstrap_servers='172.20.10.3:9092')  # Kafka producer instance
+    producer.send('userInfoTopic', json.dumps(userInfo).encode('utf-8'))  # Send user info to Kafka topic
+    producer.flush()  # Flush the producer to ensure all messages are sent
+    producer.close()  # Close the producer connection
 
 
+# Default arguments for the DAG
 default_args = {
-    'owner': 'airflow',
-    'depends_on_past': False,
-    'start_date': datetime(2024, 3, 7),
-    'email_on_failure': False,
-    'email_on_retry': False,
-    'retries': 0,
-    'retry_delay': timedelta(seconds=0),
+    'owner': 'airflow',  # Owner of the DAG
+    'depends_on_past': False,  # Whether the DAG depends on past runs
+    'start_date': datetime(2024, 3, 7),  # Start date of the DAG
+    'email_on_failure': False,  # Whether to send email on failure
+    'email_on_retry': False,  # Whether to send email on retry
+    'retries': 0,  # Number of retries
+    'retry_delay': timedelta(seconds=0),  # Delay between retries
 }
 
+# Define the DAG
 dag = DAG(
-    'get_user_info_and_send_to_kafka',
-    default_args=default_args,
-    description='Fetch user info from randomuser.me and send to Kafka',
+    'get_user_info_and_send_to_kafka',  # Name of the DAG
+    default_args=default_args,  # Default arguments
+    description='Fetch user info from randomuser.me and send to Kafka',  # Description of the DAG
     schedule_interval=timedelta(seconds=30),  # Runs every 30 seconds
 )
 
+# Define the task to execute the getUserInfoAndSendToKafka function
 getUserInfoAndSendToKafka_task = PythonOperator(
-    task_id='get_user_info_and_send_to_kafka',
-    python_callable=getUserInfoAndSendToKafka,
-    dag=dag,
+    task_id='get_user_info_and_send_to_kafka',  # Task ID
+    python_callable=getUserInfoAndSendToKafka,  # Function to execute
+    dag=dag,  # Associated DAG
 )
 
 
