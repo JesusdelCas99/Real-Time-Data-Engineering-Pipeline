@@ -34,6 +34,7 @@ services:
     image: apache/airflow:2.6.0-python3.9
     depends_on: 
       - postgres
+      - broker
     ports:
       - "8081:8081"
     volumes:
