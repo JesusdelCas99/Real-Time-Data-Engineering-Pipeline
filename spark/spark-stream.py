@@ -3,7 +3,7 @@ from pyspark.sql.types import StructType, StringType, IntegerType
 from pyspark.sql.functions import from_json, col, expr
 import time
 
-print("KIMI")
+
 
 # Create a SparkSession builder object for overall configuration and connectors setup for the Kafka cluster
 try:
