@@ -25,6 +25,7 @@ Before running this project, make sure you have Docker and Docker Compose instal
 ## Usage
 
   2. Access the Airflow web interface at http://127.0.0.1:8081 and activate the DAG named `get_user_info_and_send_to_kafka`.
+
      Log in using the following credentials:
      
      - Username: user
