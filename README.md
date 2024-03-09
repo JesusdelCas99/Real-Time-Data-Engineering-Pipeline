@@ -11,7 +11,7 @@ This project leverages a robust tech stack for seamless data handling that inclu
 
 - **Apache Airflow**: A platform for programmatically authoring, scheduling, and monitoring workflows.
 - **PostgreSQL**: An open-source relational database management system known for its reliability and robustness.
-- **Apache Kafka**: A distributed streaming platform used for building real-time data pipelines and streaming applications.
+- **Apache Kafka** (with KRaft): A distributed streaming platform used for building real-time data pipelines and streaming applications.
 - **Apache Spark**: A fast and general-purpose cluster computing system for big data processing.
 - **Cassandra**: A distributed NoSQL database designed for high scalability and fault tolerance.
 - **Control Center**: A comprehensive management and monitoring tool for Apache Kafka clusters, providing insights into cluster health, performance, and security.
