@@ -2,7 +2,7 @@
 
 This repository provides a detailed guide for constructing a robust end-to-end data engineering pipeline that covers each stage from data ingestion to processing and finally to storage. The pipeline is orchestrated using Apache Airflow and encapsulated within Docker containers for scalability and efficient management. 
 
-  1. **Data Extraction**: Utilizing the "https://randomuser.me/api/" API to extract user data.
+  1. **Data Extraction**: Utilizing the https://randomuser.me/api/ API to retrieve user data at 30-second intervals.
   2. **Data Storage**: Storing the extracted data as a Kafka topic for seamless streaming.
   3. **Real-Time Processing**: Employing a Spark Cluster consumer group for real-time data processing.
   4. **Data Storage**: Persisting the processed data in a Cassandra database for further analysis and retrieval.
@@ -13,13 +13,13 @@ This repository provides a detailed guide for constructing a robust end-to-end d
 This project leverages a robust tech stack for seamless data handling that includes:
 
 - **Apache Airflow**: A platform for programmatically authoring, scheduling, and monitoring workflows.
-- PostgreSQL: An open-source relational database management system known for its reliability and robustness.
-- Apache Kafka: A distributed streaming platform used for building real-time data pipelines and streaming applications.
-- Apache Spark: A fast and general-purpose cluster computing system for big data processing.
-- Cassandra: A distributed NoSQL database designed for high scalability and fault tolerance.
-- Control Center: A comprehensive management and monitoring tool for Apache Kafka clusters, providing insights into cluster health, performance, and security.
-- Schema Registry: A centralized repository for managing Avro schemas used in Kafka topics, ensuring data compatibility and consistency across different services.
-- Docker: A platform for developing, shipping, and running applications in containers for ease of deployment and scalability.
+- **PostgreSQL**: An open-source relational database management system known for its reliability and robustness.
+- **Apache Kafka**: A distributed streaming platform used for building real-time data pipelines and streaming applications.
+- **Apache Spark**: A fast and general-purpose cluster computing system for big data processing.
+- **Cassandra**: A distributed NoSQL database designed for high scalability and fault tolerance.
+- **Control Center**: A comprehensive management and monitoring tool for Apache Kafka clusters, providing insights into cluster health, performance, and security.
+- **Schema Registry**: A centralized repository for managing Avro schemas used in Kafka topics, ensuring data compatibility and consistency across different services.
+- **Docker**: A platform for developing, shipping, and running applications in containers for ease of deployment and scalability.
 
 ## Usage
 
