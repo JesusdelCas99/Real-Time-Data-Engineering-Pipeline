@@ -3,7 +3,6 @@ from pyspark.sql.types import StructType, StringType, IntegerType
 from pyspark.sql.functions import from_json, col, expr
 import time
 
-
 print("KIMI")
 
 # Create a SparkSession builder object for overall configuration and connectors setup for the Kafka cluster
@@ -17,7 +16,6 @@ try:
 
 except Exception as e:
     print(f"Couldn't create the spark session due to exception {e}")
-                      
 
 # Define the schema for JSON data
 schema = StructType().add("id", IntegerType()) \
@@ -29,7 +27,6 @@ schema = StructType().add("id", IntegerType()) \
                      .add("city", StringType()) \
                      .add("state", StringType()) \
                      .add("country", StringType())
-
 
 # Continuously try to create Kafka DataFrame from Kafka topic "userInfoTopic", until successful
 while True:
@@ -55,11 +52,11 @@ while True:
 
 while True:
     try:
+        print('Sending data to Cassandra...')
         # Parse message payload to JSON dataframe
         parsed_df = df.selectExpr("CAST(value AS STRING)") \
                     .select(from_json(col("value"), schema).alias("data")) \
                     .select("data.*")
-
 
         # Add an artificial "id" column to the dataframe
         parsed_df = parsed_df.withColumn("id", expr("uuid()"))
@@ -72,15 +69,15 @@ while True:
                         .option("checkpointLocation", "file:///tmp/spark_checkpoint") \
                         .start()
 
-        # Wait for the streaming query to finish before shutting down the SparkSession. This function waits 
+        # Wait for the streaming query to finish before shutting down the SparkSession. This function waits
         # indefinitely until the streaming query is either stopped manually or encounters an error.
         query.awaitTermination()
 
         break # Exit loop once kafka application is finished
 
     except Exception:
-        # Log warning message if Kafka DataFrame coud not be broadcasted
-        print(f"Kafka dataframe could not be broadcasted to Cassandra. Trying another time...")
+        # Log a warning message if the parsed DataFrame fails to write to Cassandra
+        print(f"Kafka dataframe could not be send to Cassandra. Trying again...")
         # Sleep for 5 seconds before next attempt
         time.sleep(5)
         continue  # Continue to retry if Kafka DataFrame creation fails
