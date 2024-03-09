@@ -45,7 +45,7 @@ Before running this project, make sure you have Docker and Docker Compose instal
   the overall userinfo table:
 
   ```
-  id                                  | city          | country     | email                               | name      | password  | phone          | state                        | username
+    id                                  | city          | country     | email                               | name      | password  | phone          | state                        | username
 --------------------------------------+---------------+-------------+-------------------------------------+-----------+-----------+----------------+------------------------------+----------------------
  da27f8c2-3aa2-4015-8037-30686638ae42 |       Limeira |      Brazil |          fausta.peixoto@example.com |    Fausta |  rsalinas | (11) 2928-9052 |                        Ceará |      brownostrich595
  6a0cf79c-186a-465b-a2e0-a785513674db | Coffs Harbour |   Australia |              alice.reed@example.com |     Alice |   frances |   07-5498-1948 | Australian Capital Territory |         tinytiger379
