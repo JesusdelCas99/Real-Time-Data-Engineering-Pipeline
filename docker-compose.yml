@@ -146,7 +146,7 @@ services:
       - cassandra
     volumes:
       - ./spark/spark-stream.py:/opt/bitnami/spark-stream.py
-      - ./spark/logs:/tmp/spark-events/jesus
+      - ./spark/logs:/tmp/spark-events
     command:
       - bash
       - -c
@@ -156,7 +156,7 @@ services:
         --conf "spark.driver.memory=1g" \
         --conf "spark.executor.memory=1g" \
         --conf "spark.eventLog.enabled=true" \
-        --conf "spark.eventLog.dir=/tmp/spark-events/jesus" \
+        --conf "spark.eventLog.dir=/tmp/spark-events" \
         --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.1,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 \
         --conf "spark.kafka.bootstrap.servers=172.20.10.3:9092" \
         --conf "spark.kafka.group.id=my_spark_cluster" \

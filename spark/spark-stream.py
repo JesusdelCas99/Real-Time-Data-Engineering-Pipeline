@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StringType
-from pyspark.sql.functions import from_json, col
+from pyspark.sql.types import StructType, StringType, IntegerType
+from pyspark.sql.functions import from_json, col, expr
 import time
 
 
@@ -20,7 +20,8 @@ except Exception as e:
                       
 
 # Define the schema for JSON data
-schema = StructType().add("username", StringType()) \
+schema = StructType().add("id", IntegerType()) \
+                     .add("username", StringType()) \
                      .add("password", StringType()) \
                      .add("name", StringType()) \
                      .add("phone", StringType()) \
@@ -59,12 +60,8 @@ parsed_df = df.selectExpr("CAST(value AS STRING)") \
               .select("data.*")
 
 
-print("Hello World!")
-# Write data to console
-query_console = parsed_df.writeStream \
-                         .outputMode("append") \
-                         .format("console") \
-                         .start()
+# Add an artificial "id" column to the dataframe
+parsed_df = parsed_df.withColumn("id", expr("uuid()"))
 
 # Write parsed data to Cassandra
 query = parsed_df.writeStream \

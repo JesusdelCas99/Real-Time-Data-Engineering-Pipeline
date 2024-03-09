@@ -11,7 +11,6 @@ while ! cqlsh "$host" "$port" -u cassandra -p cassandra --connect-timeout=5 -e "
   sleep 5
 done
 
-
 # Once the server is available, print a success message
 echo "Cassandra is up and running at $host:$port"
 
@@ -25,7 +24,3 @@ echo "Service is up and running!"
 while true; do
   :
 done
-
-
-
-
