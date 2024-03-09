@@ -24,8 +24,13 @@ Before running this project, make sure you have Docker and Docker Compose instal
     
 ## Usage
 
-  
-  1. Open Docker Desktop and launch the Docker Compose project configuration file:
+Before running this project, make sure you have Docker and Docker Compose installed on your machine. Once installed, follow these step-by-step instructions:
+
+  1. Clone the repository to your local machine using the following command: 
+       ```
+      git clone https://github.com/JesusdelCas99/Real-Time-Data-Engineering-Pipeline.git
+      ```
+  2. Launch Docker Desktop and execute the Docker Compose project configuration file from the root directory of the cloned repository:
       ```
       docker-compose up
       ```
