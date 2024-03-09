@@ -53,24 +53,34 @@ while True:
         time.sleep(5)
         continue  # Continue to retry if Kafka DataFrame creation fails
 
+while True:
+    try:
+        # Parse message payload to JSON dataframe
+        parsed_df = df.selectExpr("CAST(value AS STRING)") \
+                    .select(from_json(col("value"), schema).alias("data")) \
+                    .select("data.*")
 
-# Parse message payload to JSON dataframe
-parsed_df = df.selectExpr("CAST(value AS STRING)") \
-              .select(from_json(col("value"), schema).alias("data")) \
-              .select("data.*")
 
+        # Add an artificial "id" column to the dataframe
+        parsed_df = parsed_df.withColumn("id", expr("uuid()"))
 
-# Add an artificial "id" column to the dataframe
-parsed_df = parsed_df.withColumn("id", expr("uuid()"))
+        # Write parsed data to Cassandra
+        query = parsed_df.writeStream \
+                        .format("org.apache.spark.sql.cassandra") \
+                        .option("keyspace", "spark_stream") \
+                        .option("table", "userinfo") \
+                        .option("checkpointLocation", "file:///tmp/spark_checkpoint") \
+                        .start()
 
-# Write parsed data to Cassandra
-query = parsed_df.writeStream \
-                 .format("org.apache.spark.sql.cassandra") \
-                 .option("keyspace", "spark_stream") \
-                 .option("table", "userinfo") \
-                 .option("checkpointLocation", "file:///tmp/spark_checkpoint") \
-                 .start()
+        # Wait for the streaming query to finish before shutting down the SparkSession. This function waits 
+        # indefinitely until the streaming query is either stopped manually or encounters an error.
+        query.awaitTermination()
 
-# Wait for the streaming query to finish before shutting down the SparkSession. This function waits 
-# indefinitely until the streaming query is either stopped manually or encounters an error.
-query.awaitTermination()
+        break # Exit loop once kafka application is finished
+
+    except Exception:
+        # Log warning message if Kafka DataFrame coud not be broadcasted
+        print(f"Kafka dataframe could not be broadcasted to Cassandra. Trying again...")
+        # Sleep for 5 seconds before next attempt
+        time.sleep(5)
+        continue  # Continue to retry if Kafka DataFrame creation fails
