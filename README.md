@@ -45,15 +45,15 @@ Before running this project, make sure you have Docker and Docker Compose instal
   the overall userinfo table:
 
   ```
-  id                                   | city          | country     | email                               | name      | password  | phone          | state                        | username
+  id                                  | city          | country     | email                               | name      | password  | phone          | state                        | username
 --------------------------------------+---------------+-------------+-------------------------------------+-----------+-----------+----------------+------------------------------+----------------------
- 7fa1d4c1-fa7e-4b7f-b967-794b0f9ff7e6 |        بروجرد |        Iran |               mrl.hsyny@example.com |     مارال |  mortgage |   022-96041359 |               آذربایجان شرقی |       organicfish264
- 951a803c-21c8-4798-aa65-67ee119363b1 |     Järvenpää |     Finland |              toivo.palo@example.com |     Toivo |    elway7 |     08-115-376 |                      Uusimaa |    beautifulsnake682
- dc3c2b7f-57b2-4586-b125-ba6d1f8d255f | Kahramanmaraş |      Turkey |             murat.ozbir@example.com |     Murat |     spoon | (844)-413-9472 |                      Erzurum |         heavyswan844
- 68b90e7b-89a4-4afe-9b80-3efb84876a27 |      Cornwall |      Canada |              felix.park@example.com |     Felix |     rebel |   P17 K15-7562 |                      Alberta |         brownbird784
- f085b20e-43f4-4ef8-aa43-613ad8bb16c5 |        Løstad |      Norway |         adrian.mohammad@example.com |    Adrian |  dolemite |       68782109 |                     Rogaland |      organicpanda534
+ da27f8c2-3aa2-4015-8037-30686638ae42 |       Limeira |      Brazil |          fausta.peixoto@example.com |    Fausta |  rsalinas | (11) 2928-9052 |                        Ceará |      brownostrich595
+ 6a0cf79c-186a-465b-a2e0-a785513674db | Coffs Harbour |   Australia |              alice.reed@example.com |     Alice |   frances |   07-5498-1948 | Australian Capital Territory |         tinytiger379
+ 7de8a747-bfa3-4639-9b63-f193dee3c8d0 |         Field |      Canada |            lily.lavigne@example.com |      Lily |    getoff |   R62 T34-5668 |        Northwest Territories |        goldenduck868
+ ec08a2e4-7816-4b6d-bf8a-e54cc64f8d67 |      Donabate |     Ireland |         gerald.stephens@example.com |    Gerald |    karina |   011-345-1178 |                        Louth |         tinyzebra989
+ 4063df64-1c92-4ec2-96ce-65fa88a63305 |        Oppdal |      Norway |        hamza.gerhardsen@example.com |     Hamza |   abgrtyu |       79457808 |               Nord-Trøndelag | ticklishbutterfly431
+ f1ec4252-6a17-44bb-922a-070a59795e26 |    Alcobendas |       Spain |           sofia.vazquez@example.com |     Sofia |   tickler |    923-094-300 |           Castilla la Mancha |         greenbear310
   ```
-
 
 ## Directory Structure
 
