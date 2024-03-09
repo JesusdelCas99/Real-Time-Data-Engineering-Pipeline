@@ -52,7 +52,6 @@ while True:
 
 while True:
     try:
-        print('Sending data to Cassandra...')
         # Parse message payload to JSON dataframe
         parsed_df = df.selectExpr("CAST(value AS STRING)") \
                     .select(from_json(col("value"), schema).alias("data")) \
@@ -60,6 +59,9 @@ while True:
 
         # Add an artificial "id" column to the dataframe
         parsed_df = parsed_df.withColumn("id", expr("uuid()"))
+
+        # Log message
+        print('Sending data to Cassandra...')
 
         # Write parsed data to Cassandra
         query = parsed_df.writeStream \
@@ -77,7 +79,7 @@ while True:
 
     except Exception:
         # Log a warning message if the parsed DataFrame fails to write to Cassandra
-        print(f"Kafka dataframe could not be send to Cassandra. Trying again...")
+        print("Failed to send Kafka DataFrame to Cassandra. Waiting for Airflow to initialize the DAG...")
         # Sleep for 5 seconds before next attempt
         time.sleep(5)
         continue  # Continue to retry if Kafka DataFrame creation fails
