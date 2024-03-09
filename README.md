@@ -18,6 +18,9 @@ This project leverages a robust tech stack for seamless data handling that inclu
 - **Schema Registry**: A centralized repository for managing Avro schemas used in Kafka topics.
 - **Docker**: A platform for developing, shipping, and running applications in containers for ease of deployment.
 
+
+![Nombre Opcional](system_architecture.svg)
+
 ## Table of Contents
 
 - [Usage](#usage)
