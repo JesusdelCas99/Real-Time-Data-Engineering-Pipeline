@@ -45,6 +45,8 @@ Before running this project, make sure you have Docker and Docker Compose instal
   the overall userinfo table:
 
   ```
+# cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
+
     id                                  | city          | country     | email                               | name      | password  | phone          | state                        | username
 --------------------------------------+---------------+-------------+-------------------------------------+-----------+-----------+----------------+------------------------------+----------------------
    da27f8c2-3aa2-4015-8037-30686638ae42 |       Limeira |      Brazil |          fausta.peixoto@example.com |    Fausta |  rsalinas | (11) 2928-9052 |                        Ceará |      brownostrich595
