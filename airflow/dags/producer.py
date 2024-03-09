@@ -44,9 +44,9 @@ default_args = {
 
 # Define the DAG
 dag = DAG(
-    'get_user_info_and_send_to_kafka',  # Name of the DAG
+    'get_user_info_and_send_to_kafka',  # Dag name
     default_args=default_args,  # Default arguments
-    description='Fetch user info from randomuser.me and send to Kafka',  # Description of the DAG
+    description='Fetch user info from randomuser.me and send to Kafka',  # DAG description
     schedule_interval=timedelta(seconds=30),  # Runs every 30 seconds
 )
 

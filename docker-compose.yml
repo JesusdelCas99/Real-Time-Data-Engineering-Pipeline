@@ -36,7 +36,7 @@ services:
       - postgres
       - broker
     ports:
-      - "8081:8081"
+      - "2040:2040"
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
@@ -50,8 +50,8 @@ services:
         airflow db init;
         airflow users create --username user --firstname user --lastname user --role Admin --email admin@example.com --password admin;
         airflow db upgrade;
-        airflow webserver -p 8081 > /dev/null 2>&1 &
-        airflow scheduler 
+        airflow webserver -p 2040 > /dev/null 2>&1 &
+        airflow scheduler
     networks:
       kafka-network:
         ipv4_address: 172.20.10.5
@@ -88,6 +88,11 @@ services:
   spark-master:
     image: bitnami/spark:3.5.1
     command: bin/spark-class org.apache.spark.deploy.master.Master
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
     ports:
       - "9090:8080"
       - "7077:7077"
@@ -102,6 +107,11 @@ services:
     depends_on:
       - spark-master
     env_file: ./.env/spark-worker.env
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
     networks:
       kafka-network:
         ipv4_address: 172.20.10.9
@@ -113,9 +123,52 @@ services:
     ports:
       - "9042:9042"
     env_file: ./.env/cassandra.env
+    volumes:
+      - ./cassandra/cassandra-init.cql:/tmp/cassandra-init.cql
+      - ./cassandra/init.sh:/tmp/init.sh
+      - ./cassandra/data:/var/lib/cassandra
+    command:
+      - bash
+      - -c
+      - |
+        /docker-entrypoint.sh > /dev/null 2>&1 &
+        /tmp/init.sh
     networks:
       kafka-network:
         ipv4_address: 172.20.10.10
+
+
+  spark-submmit:
+    image: bitnami/spark:3.5.1
+    depends_on:
+      - spark-master
+      - spark-worker
+      - cassandra
+    volumes:
+      - ./spark/spark-stream.py:/opt/bitnami/spark-stream.py
+      - ./spark/logs:/tmp/spark-events/jesus
+    command:
+      - bash
+      - -c
+      - |
+        spark-submit \
+        --master spark://172.20.10.8:7077 \
+        --conf "spark.driver.memory=1g" \
+        --conf "spark.executor.memory=1g" \
+        --conf "spark.eventLog.enabled=true" \
+        --conf "spark.eventLog.dir=/tmp/spark-events/jesus" \
+        --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.1,com.datastax.spark:spark-cassandra-connector_2.12:3.4.1 \
+        --conf "spark.kafka.bootstrap.servers=172.20.10.3:9092" \
+        --conf "spark.kafka.group.id=my_spark_cluster" \
+        --conf "spark.cassandra.connection.host=172.20.10.10" \
+        --conf "spark.cassandra.connection.port=9042" \
+        --conf "spark.cassandra.auth.username=cassandra" \
+        --conf "spark.cassandra.auth.password=cassandra" \
+        --conf "spark.cassandra.output.consistency.level=ONE" \
+        /opt/bitnami/spark-stream.py
+    networks:
+      kafka-network:
+        ipv4_address: 172.20.10.11
 
 
 networks:
