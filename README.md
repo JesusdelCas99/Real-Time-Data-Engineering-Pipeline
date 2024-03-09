@@ -36,7 +36,7 @@ Before running this project, make sure you have Docker and Docker Compose instal
   6. Once logged in, activate DAG `get_user_info_and_send_to_kafka`.
   7. Access Kafka Control Center cluster web interface at http://127.0.0.1:9021 and verify that user information is being sent from the API to the *userInfoTopic*.
   8. (Optional) Access the Apache Spark Cluster web interface at http://127.0.0.1:9090 to view detailed information about cluster health and worker resources.
-  9. Open Docker Desktop and navigate to the terminal window of the `spark-submmit` container and execute the following command:
+  9. Open Docker Desktop, navigate to the terminal window of the `spark-submmit` container and execute the following command:
 
      ```
      cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
