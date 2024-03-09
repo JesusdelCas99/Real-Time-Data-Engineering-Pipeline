@@ -24,6 +24,16 @@ Before running this project, make sure you have Docker and Docker Compose instal
     
 ## Usage
 
+  2. Access the Airflow web interface at http://127.0.0.1:8081 and activate the DAG named get_user_info_and_send_to_kafka. Log in using the following credentials:
+     
+     - Username: user
+     - Password: admin
+      
+  3. Check the Kafka cluster web interface at http://127.0.0.1:9021 to verify that user information is being sent from the API.
+  5. 
+
+
+
 http://127.0.0.1:9021: Control Center for Kafka
 http://127.0.0.1:9090: Web Server for Spark Cluster
 http://127.0.0.1:8081: Web Server for Airflow
