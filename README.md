@@ -63,7 +63,7 @@ Project files and folder structure:
 - `.env/`: Contains environment configuration files.
 - `docker-compose.yml`: Docker Compose configuration file.
     
-#### Environment Configuration
+### Environment Configuration
 
 The repository includes several `.env` files that contain environment variables necessary for configuring different services. Below is a brief overview of each `.env` file:
 
