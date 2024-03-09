@@ -12,7 +12,7 @@ This repository provides a detailed guide for constructing a robust end-to-end d
 
 This project leverages a robust tech stack for seamless data handling that includes:
 
-- Apache Airflow: A platform for programmatically authoring, scheduling, and monitoring workflows.
+- **Apache Airflow**: A platform for programmatically authoring, scheduling, and monitoring workflows.
 - PostgreSQL: An open-source relational database management system known for its reliability and robustness.
 - Apache Kafka: A distributed streaming platform used for building real-time data pipelines and streaming applications.
 - Apache Spark: A fast and general-purpose cluster computing system for big data processing.
