@@ -22,6 +22,8 @@ This project leverages a robust tech stack for seamless data handling that inclu
 
 ![Nombre Opcional](system_architecture.png)
 
+![Nombre Opcional](system_architecture.png)
+
 ## Table of Contents
 
 - [Usage](#usage)
