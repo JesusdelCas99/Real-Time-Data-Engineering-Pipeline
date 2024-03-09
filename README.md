@@ -24,16 +24,20 @@ Before running this project, make sure you have Docker and Docker Compose instal
     
 ## Usage
 
-  2. Access the Airflow web interface at http://127.0.0.1:8081 and activate the DAG named `get_user_info_and_send_to_kafka`.
+  
+  1. 
+  2. Access Airflow web interface at http://127.0.0.1:8081. Log in using the following credentials:
 
-     Log in using the following credentials:
-     
-     - Username: user
-       
-     - Password: admin
-      
-  4. Check the Kafka cluster web interface at http://127.0.0.1:9021 to verify that user information is being sent from the API.
-  5. 
+    - Username: `user`
+    - Password: `admin`
+
+  3. Once logged in, activate DAG `get_user_info_and_send_to_kafka`.
+  4. Access Kafka Control Center cluster web interface at http://127.0.0.1:9021 and verify that user information is being sent from the API to the *userInfoTopic*.
+  5. Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+     ```
+     cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
+     ```
 
 
 
