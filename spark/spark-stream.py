@@ -80,7 +80,7 @@ while True:
 
     except Exception:
         # Log warning message if Kafka DataFrame coud not be broadcasted
-        print(f"Kafka dataframe could not be broadcasted to Cassandra. Trying again...")
+        print(f"Kafka dataframe could not be broadcasted to Cassandra. Trying another time...")
         # Sleep for 5 seconds before next attempt
         time.sleep(5)
         continue  # Continue to retry if Kafka DataFrame creation fails
