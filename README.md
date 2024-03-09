@@ -25,26 +25,35 @@ Before running this project, make sure you have Docker and Docker Compose instal
 ## Usage
 
   
-  1. 
-  2. Access Airflow web interface at http://127.0.0.1:8081. Log in using the following credentials: <*Username*=user>, <*Password*=admin>.
-  3. Once logged in, activate DAG `get_user_info_and_send_to_kafka`.
-  4. Access Kafka Control Center cluster web interface at http://127.0.0.1:9021 and verify that user information is being sent from the API to the *userInfoTopic*.
-  5. Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  1. Open Docker Desktop and launch the Docker Compose project configuration file:
+
+    ```
+    docker-compose up
+    ```
+     
+  3. Access Airflow web interface at http://127.0.0.1:8081. Log in using the following credentials: <*Username*=user>, <*Password*=admin>.
+  4. Once logged in, activate DAG `get_user_info_and_send_to_kafka`.
+  5. Access Kafka Control Center cluster web interface at http://127.0.0.1:9021 and verify that user information is being sent from the API to the *userInfoTopic*.
+  6. (Optional) Access the Apache Spark Cluster web interface at http://127.0.0.1:9090 to view detailed information about cluster health and worker resources.
+  7. Open Docker Desktop and navigate to spark-submmit container "terminal" window. There write the following command to verify everything is working:
 
      ```
      cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
      ```
 
+  if things are working properly, the below command should give you a response like the following, were each time you write it again, new registries are being add to the
+  the overall userinfo table:
 
+  ```
+  id                                   | city          | country     | email                               | name      | password  | phone          | state                        | username
+--------------------------------------+---------------+-------------+-------------------------------------+-----------+-----------+----------------+------------------------------+----------------------
+ 7fa1d4c1-fa7e-4b7f-b967-794b0f9ff7e6 |        بروجرد |        Iran |               mrl.hsyny@example.com |     مارال |  mortgage |   022-96041359 |               آذربایجان شرقی |       organicfish264
+ 951a803c-21c8-4798-aa65-67ee119363b1 |     Järvenpää |     Finland |              toivo.palo@example.com |     Toivo |    elway7 |     08-115-376 |                      Uusimaa |    beautifulsnake682
+ dc3c2b7f-57b2-4586-b125-ba6d1f8d255f | Kahramanmaraş |      Turkey |             murat.ozbir@example.com |     Murat |     spoon | (844)-413-9472 |                      Erzurum |         heavyswan844
+ 68b90e7b-89a4-4afe-9b80-3efb84876a27 |      Cornwall |      Canada |              felix.park@example.com |     Felix |     rebel |   P17 K15-7562 |                      Alberta |         brownbird784
+ f085b20e-43f4-4ef8-aa43-613ad8bb16c5 |        Løstad |      Norway |         adrian.mohammad@example.com |    Adrian |  dolemite |       68782109 |                     Rogaland |      organicpanda534
+  ```
 
-http://127.0.0.1:9021: Control Center for Kafka
-http://127.0.0.1:9090: Web Server for Spark Cluster
-http://127.0.0.1:8081: Web Server for Airflow
-
-1. Levantamos la arquitectura de microservicios usando docker-compose up
-2. Accedemos a la interfaz web de Airflow y activamos el elemento de DAG
-3. Accedemos a la interfaz web del cluster de kafka para ver que efectivamente se esta enviando informacion de la API
-4. Para verificar que todo funciona correctamente, accede a la terminal del contenedor de cassandra y ejecuta el siguiente comando: cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
 
 ## Directory Structure
 
