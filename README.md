@@ -40,21 +40,19 @@ Before running this project, make sure you have Docker and Docker Compose instal
      ```
      cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
      ```
-
       if things are working properly, the below command should give you a response like the following, were each time you write it again, new registries are being add to the
       the overall userinfo table:
-    
       ```
-    # cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
-    
-        id                                  | city          | country     | email                               | name      | password  | phone          | state                        | username
-    --------------------------------------+---------------+-------------+-------------------------------------+-----------+-----------+----------------+------------------------------+----------------------
-       da27f8c2-3aa2-4015-8037-30686638ae42 |       Limeira |      Brazil |          fausta.peixoto@example.com |    Fausta |  rsalinas | (11) 2928-9052 |                        Ceará |      brownostrich595
-       6a0cf79c-186a-465b-a2e0-a785513674db | Coffs Harbour |   Australia |              alice.reed@example.com |     Alice |   frances |   07-5498-1948 | Australian Capital Territory |         tinytiger379
-       7de8a747-bfa3-4639-9b63-f193dee3c8d0 |         Field |      Canada |            lily.lavigne@example.com |      Lily |    getoff |   R62 T34-5668 |        Northwest Territories |        goldenduck868
-       ec08a2e4-7816-4b6d-bf8a-e54cc64f8d67 |      Donabate |     Ireland |         gerald.stephens@example.com |    Gerald |    karina |   011-345-1178 |                        Louth |         tinyzebra989
-       4063df64-1c92-4ec2-96ce-65fa88a63305 |        Oppdal |      Norway |        hamza.gerhardsen@example.com |     Hamza |   abgrtyu |       79457808 |               Nord-Trøndelag | ticklishbutterfly431
-       f1ec4252-6a17-44bb-922a-070a59795e26 |    Alcobendas |       Spain |           sofia.vazquez@example.com |     Sofia |   tickler |    923-094-300 |           Castilla la Mancha |         greenbear310
+      # cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
+      
+          id                                  | city          | country     | email                               | name      | password  | phone          | state                        | username
+      --------------------------------------+---------------+-------------+-------------------------------------+-----------+-----------+----------------+------------------------------+----------------------
+         da27f8c2-3aa2-4015-8037-30686638ae42 |       Limeira |      Brazil |          fausta.peixoto@example.com |    Fausta |  rsalinas | (11) 2928-9052 |                        Ceará |      brownostrich595
+         6a0cf79c-186a-465b-a2e0-a785513674db | Coffs Harbour |   Australia |              alice.reed@example.com |     Alice |   frances |   07-5498-1948 | Australian Capital Territory |         tinytiger379
+         7de8a747-bfa3-4639-9b63-f193dee3c8d0 |         Field |      Canada |            lily.lavigne@example.com |      Lily |    getoff |   R62 T34-5668 |        Northwest Territories |        goldenduck868
+         ec08a2e4-7816-4b6d-bf8a-e54cc64f8d67 |      Donabate |     Ireland |         gerald.stephens@example.com |    Gerald |    karina |   011-345-1178 |                        Louth |         tinyzebra989
+         4063df64-1c92-4ec2-96ce-65fa88a63305 |        Oppdal |      Norway |        hamza.gerhardsen@example.com |     Hamza |   abgrtyu |       79457808 |               Nord-Trøndelag | ticklishbutterfly431
+         f1ec4252-6a17-44bb-922a-070a59795e26 |    Alcobendas |       Spain |           sofia.vazquez@example.com |     Sofia |   tickler |    923-094-300 |           Castilla la Mancha |         greenbear310
       ```
 
 ## Directory Structure
