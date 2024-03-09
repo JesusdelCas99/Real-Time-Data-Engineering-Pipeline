@@ -7,9 +7,6 @@ This repository provides a detailed guide for constructing a robust end-to-end d
   3. **Real-Time Processing**: Employing a Spark Cluster consumer group for real-time data processing.
   4. **Data Storage**: Persisting the processed data in a Cassandra database for further analysis and retrieval.
 
-
-### Tech Stack
-
 This project leverages a robust tech stack for seamless data handling that includes:
 
 - **Apache Airflow**: A platform for programmatically authoring, scheduling, and monitoring workflows.
