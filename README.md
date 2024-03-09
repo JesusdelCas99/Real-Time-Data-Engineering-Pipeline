@@ -35,13 +35,12 @@ Before running this project, make sure you have Docker and Docker Compose instal
   4. Once logged in, activate DAG `get_user_info_and_send_to_kafka`.
   5. Access Kafka Control Center cluster web interface at http://127.0.0.1:9021 and verify that user information is being sent from the API to the *userInfoTopic*.
   6. (Optional) Access the Apache Spark Cluster web interface at http://127.0.0.1:9090 to view detailed information about cluster health and worker resources.
-  7. Open Docker Desktop and navigate to spark-submmit container "terminal" window. There write the following command to verify everything is working:
+  7. Open Docker Desktop and navigate to the terminal window of the `spark-submmit` container and execute the following command:
 
      ```
      cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
      ```
-      if things are working properly, the below command should give you a response like the following, were each time you write it again, new registries are being add to the
-      the overall userinfo table:
+      The preceding command should yield a response akin to the following. Upon each execution of the command, fresh records will be appended to the userinfo table, as they are streamed in real-time from the API.
       ```
       # cqlsh -u cassandra -p cassandra 172.20.10.10 9042 -e "SELECT * FROM spark_stream.userinfo;"
       
