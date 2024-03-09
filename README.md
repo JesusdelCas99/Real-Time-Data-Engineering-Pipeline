@@ -1,4 +1,4 @@
-# Real time Data Pipeline with Airflow Kafka Spark Cassandra,and PostgreSQL
+# Real time Data Engineering Pipeline with Apache Airflow, Apache Kafka, Apache Spark, Cassandra and PostgreSQL | End-to-End Data Engineering Project
 
 This repository provides a detailed guide for constructing a robust end-to-end data engineering pipeline that covers each stage from data ingestion to processing and finally to storage. The pipeline is orchestrated using Apache Airflow and encapsulated within Docker containers for scalability and efficient management. 
 
