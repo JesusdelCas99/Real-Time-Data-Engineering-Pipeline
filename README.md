@@ -33,7 +33,7 @@ This project leverages a robust tech stack for seamless data handling that inclu
 
 Before running this project, make sure you have Docker and Docker Compose installed on your machine. Once installed, follow these step-by-step instructions:
 
-  1. Clone the repository to your local machine using the following command: 
+  1. Clone the repository to your local machine: 
        ```
       git clone https://github.com/JesusdelCas99/Real-Time-Data-Engineering-Pipeline.git
       ```
