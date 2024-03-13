@@ -25,7 +25,7 @@ This project leverages a robust tech stack for seamless data handling that inclu
 ## Table of Contents
 
 - [Usage](#usage)
-- [Directory Structure](#directory-structure)
+- [Repository Structure](#repository-structure)
 - [Environment Configuration](#environment-configuration)
 - [Acknowledgments](#acknowledgments)
 
