@@ -64,7 +64,7 @@ Before running this project, make sure you have Docker and Docker Compose instal
          f1ec4252-6a17-44bb-922a-070a59795e26 |    Alcobendas |       Spain |           sofia.vazquez@example.com |     Sofia |   tickler |    923-094-300 |           Castilla la Mancha |         greenbear310
       ```
 
-## Directory Structure
+## Repository Structure
 
 Project files and folder structure:
 
