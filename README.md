@@ -73,18 +73,6 @@ Project files and folder structure:
 - `spark/`: Contains Spark streaming script and logs.
 - `.env/`: Contains environment configuration files.
 - `docker-compose.yml`: Docker Compose configuration file.
-    
-### Environment Configuration
-
-The repository includes several `.env` files that contain environment variables necessary for configuring different services. Below is a brief overview of each `.env` file:
-
-- `.env/airflow.env`: Contains environment variables for configuring Apache Airflow.
-- `.env/cassandra.env`: Contains environment variables for configuring Cassandra.
-- `.env/control-center.env`: Contains environment variables for configuring Confluent Control Center.
-- `.env/kafka.env`: Contains environment variables for configuring Apache Kafka.
-- `.env/postgres.env`: Contains environment variables for configuring PostgreSQL.
-- `.env/schema-registry.env`: Contains environment variables for configuring Schema Registry.
-- `.env/spark-worker.env`: Contains environment variables for configuring Apache Spark.
 
 ## Acknowledgments
 
